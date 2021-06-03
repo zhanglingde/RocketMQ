@@ -18,11 +18,11 @@ public class Consumer {
         // 实例化消费者 Consumer
         DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("group1");
         // 设置 NameServer 的地址
-        consumer.setNamesrvAddr("192.168.191.128:9876");
+        consumer.setNamesrvAddr("192.168.191.128:9876;192.168.191.129:9876");
         // 订阅一个或多个 Topic，以及 Tag 来过滤需要消费的消息
         consumer.subscribe("OnewayTopic", "*");
         // 负载均衡模式 消费消息
-        consumer.setMessageModel(MessageModel.BROADCASTING);
+        consumer.setMessageModel(MessageModel.CLUSTERING);
         // 注册回调函数，处理消息
         consumer.registerMessageListener(new MessageListenerConcurrently() {
             @Override

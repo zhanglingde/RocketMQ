@@ -18,7 +18,7 @@ public class SyncProducer {
         // 1. 创建生产者 Producer
         DefaultMQProducer producer = new DefaultMQProducer("group1");
         // 2. 设置 NameServer
-        producer.setNamesrvAddr("192.168.191.128:9876");
+        producer.setNamesrvAddr("192.168.191.128:9876;192.168.191.129:9876");
         producer.start();
         for (int i = 0; i < 10; i++) {
             /**
@@ -28,7 +28,7 @@ public class SyncProducer {
              * 参数三：消息内容body
              */
             Message message = new Message("SyncTopic", "TagA", ("Hello RocketMQ").getBytes());
-            SendResult result = producer.send(message);
+            SendResult result = producer.send(message,10);
 
             String msgId = result.getMsgId();
             SendStatus status = result.getSendStatus();
