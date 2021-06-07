@@ -18,7 +18,7 @@ public class SyncProducer {
         // 1. 创建生产者 Producer
         DefaultMQProducer producer = new DefaultMQProducer("group1");
         // 2. 设置 NameServer
-        producer.setNamesrvAddr("192.168.191.128:9876;192.168.191.129:9876");
+        producer.setNamesrvAddr("192.168.191.129:9876");
         producer.start();
         for (int i = 0; i < 10; i++) {
             /**

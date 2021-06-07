@@ -20,9 +20,11 @@ public class Consumer {
         // 设置 NameServer 的地址
         consumer.setNamesrvAddr("192.168.191.128:9876;192.168.191.129:9876");
         // 订阅一个或多个 Topic，以及 Tag 来过滤需要消费的消息
-        consumer.subscribe("OnewayTopic", "*");
+        consumer.subscribe("AsyncTopic", "*");
         // 负载均衡模式 消费消息
         consumer.setMessageModel(MessageModel.CLUSTERING);
+        // 设置消费超时时间
+        consumer.setConsumeTimeout(15);
         // 注册回调函数，处理消息
         consumer.registerMessageListener(new MessageListenerConcurrently() {
             @Override
