@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 public class OrderConsumer {
     public static void main(String[] args) throws Exception {
         DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("group1");
-        consumer.setNamesrvAddr("192.168.191.128:9876");
+        consumer.setNamesrvAddr("192.168.186.128:9876");
         consumer.subscribe("OrderTopic", "TagA || TagB || TagC");
 
         // 注册消息监听器

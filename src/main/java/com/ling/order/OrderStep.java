@@ -14,58 +14,58 @@ public class OrderStep {
     private String desc;    // 步骤
 
     public static List<OrderStep> buildOrderStep() {
-        //  1039L   : 创建    付款 推送  完成
-        //  1065L   ：创建    付款      完成
-        //  7235L   ：创建    付款      完成
+        //  1000L   : 创建    付款 推送  完成
+        //  3000L   ：创建    付款      完成
+        //  2000L   ：创建    付款      完成
         List<OrderStep> orderList = new ArrayList<OrderStep>();
 
         OrderStep orderDemo = new OrderStep();
-        orderDemo.setOrderId(1039L);
+        orderDemo.setOrderId(1000L);
         orderDemo.setDesc("创建");
         orderList.add(orderDemo);
 
         orderDemo = new OrderStep();
-        orderDemo.setOrderId(1065L);
+        orderDemo.setOrderId(3000L);
         orderDemo.setDesc("创建");
         orderList.add(orderDemo);
 
         orderDemo = new OrderStep();
-        orderDemo.setOrderId(1039L);
+        orderDemo.setOrderId(1000L);
         orderDemo.setDesc("付款");
         orderList.add(orderDemo);
 
         orderDemo = new OrderStep();
-        orderDemo.setOrderId(7235L);
+        orderDemo.setOrderId(2000L);
         orderDemo.setDesc("创建");
         orderList.add(orderDemo);
 
         orderDemo = new OrderStep();
-        orderDemo.setOrderId(1065L);
+        orderDemo.setOrderId(3000L);
         orderDemo.setDesc("付款");
         orderList.add(orderDemo);
 
         orderDemo = new OrderStep();
-        orderDemo.setOrderId(7235L);
+        orderDemo.setOrderId(2000L);
         orderDemo.setDesc("付款");
         orderList.add(orderDemo);
 
         orderDemo = new OrderStep();
-        orderDemo.setOrderId(1065L);
+        orderDemo.setOrderId(3000L);
         orderDemo.setDesc("完成");
         orderList.add(orderDemo);
 
         orderDemo = new OrderStep();
-        orderDemo.setOrderId(1039L);
+        orderDemo.setOrderId(1000L);
         orderDemo.setDesc("推送");
         orderList.add(orderDemo);
 
         orderDemo = new OrderStep();
-        orderDemo.setOrderId(7235L);
+        orderDemo.setOrderId(2000L);
         orderDemo.setDesc("完成");
         orderList.add(orderDemo);
 
         orderDemo = new OrderStep();
-        orderDemo.setOrderId(1039L);
+        orderDemo.setOrderId(1000L);
         orderDemo.setDesc("完成");
         orderList.add(orderDemo);
 

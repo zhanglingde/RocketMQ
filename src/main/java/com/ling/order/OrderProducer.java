@@ -14,7 +14,7 @@ import java.util.List;
 public class OrderProducer {
     public static void main(String[] args) throws Exception {
         DefaultMQProducer producer = new DefaultMQProducer("group1");
-        producer.setNamesrvAddr("192.168.191.128:9876");
+        producer.setNamesrvAddr("192.168.186.128:9876");
         producer.start();
 
         String[] tags = new String[]{"TagA", "TagB", "TagC"};
@@ -40,7 +40,7 @@ public class OrderProducer {
                  */
                 @Override
                 public MessageQueue select(List<MessageQueue> queues, Message message, Object arg) {
-                    // 根据订单 id 选择发送的 queue
+                    // 根据订单 id 选择发送的 queue（保证同一个订单的详细发送到同一个队列中）
                     Long id = (Long) arg;
                     long index = id % queues.size();
                     return queues.get((int) index);

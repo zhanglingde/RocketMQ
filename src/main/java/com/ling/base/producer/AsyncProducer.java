@@ -19,7 +19,7 @@ public class AsyncProducer {
         // 实例化消息生产者 Producer
         DefaultMQProducer producer = new DefaultMQProducer("group1");
         // 设置 NameServer 地址
-        producer.setNamesrvAddr("192.168.191.128:9876");
+        producer.setNamesrvAddr("192.168.186.128:9876");
         producer.start();
         producer.setRetryTimesWhenSendFailed(0);
 
@@ -28,6 +28,8 @@ public class AsyncProducer {
 
         for (int i = 0; i < messageCount; i++) {
             Message msg = new Message("AsyncTopic", "AsyncTag", ("Async Message" + i).getBytes());
+            msg.setKeys("TEST_KEY" + i);
+
             // SendCallback 接收异步返回结果的回调，该方式send方法为异步
             producer.send(msg, new SendCallback() {
                 @Override

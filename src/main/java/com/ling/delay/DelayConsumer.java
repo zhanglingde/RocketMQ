@@ -1,5 +1,6 @@
 package com.ling.delay;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;
@@ -11,10 +12,11 @@ import java.util.List;
 /**
  * 消费延时消息
  */
+@Slf4j
 public class DelayConsumer {
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
         DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("group1");
-        consumer.setNamesrvAddr("192.168.191.128:9876");
+        consumer.setNamesrvAddr("192.168.186.128:9876");
         consumer.subscribe("DelayTopic", "*");
 
         // 设置回调函数处理消息
@@ -22,7 +24,7 @@ public class DelayConsumer {
             @Override
             public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs, ConsumeConcurrentlyContext context) {
                 for (MessageExt msg : msgs) {
-                    System.out.println("消息Id:【"+msg.getMsgId()+"】，延时时间：【"+(System.currentTimeMillis()-msg.getStoreTimestamp())+"】,消息内容：【"+new String(msg.getBody())+"】");
+                    log.info("消息 id:{},延时时间：{},消息内容：{}", msg.getMsgId(), System.currentTimeMillis() - msg.getStoreTimestamp(), new String(msg.getBody()));
                 }
                 return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
             }

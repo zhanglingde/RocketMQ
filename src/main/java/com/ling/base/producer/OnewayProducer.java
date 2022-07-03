@@ -12,7 +12,7 @@ import org.apache.rocketmq.remoting.exception.RemotingException;
 public class OnewayProducer {
     public static void main(String[] args) throws Exception {
         DefaultMQProducer producer = new DefaultMQProducer("group1");
-        producer.setNamesrvAddr("192.168.191.128:9876");
+        producer.setNamesrvAddr("101.43.42.91:9876");
         producer.start();
 
         for (int i = 0; i < 100; i++) {
