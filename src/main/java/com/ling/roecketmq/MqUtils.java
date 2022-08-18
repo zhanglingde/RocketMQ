@@ -178,6 +178,66 @@ public class MqUtils {
     }
 
     /**
+     * 普通消息
+     *
+     * @param key  Message Key 建议消息生产方为每条消息设置尽可能唯一的 Key，以确保相同的 Key 的消息不会超过 64 条，否则消息会漏查
+     * @param body 消息内容
+     * @param tag  用来判断业务类型
+     * @author zhangling
+     * @date 2022/7/4 9:10 PM
+     */
+    public static boolean normal(String topic,String key, String body, String tag) {
+        if (null == key || null == body || null == tag) {
+            throw new RuntimeException("必填参数不能为空");
+        }
+
+        if ("apache".equals(MqConfig.mqType)) {
+            if (null == defaultMQProducer) {
+                synchronized (MqUtils.class) {
+                    if (defaultMQProducer == null) {
+                        defaultMQProducer = getDefaultMQProducer();
+                    }
+                }
+            }
+            org.apache.rocketmq.common.message.Message msg = new org.apache.rocketmq.common.message.Message(topic, tag, body.getBytes());
+            msg.setKeys(key);
+            try {
+                org.apache.rocketmq.client.producer.SendResult sendResult = defaultMQProducer.send(msg);
+                if (sendResult != null) {
+                    System.out.println(new Date() + " Send mq message success. Topic is:" + msg.getTopic() + " msgId is: " + sendResult.getMsgId() + "body=" + msg.getBody());
+                }
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+
+            // 获取 producer
+            if (null == producer) {
+                synchronized (MqUtils.class) {
+                    if (producer == null) {
+                        producer = getProducer();
+                    }
+                }
+            }
+
+            Message msg = new Message(topic, tag, body.getBytes());
+            msg.setKey(key);
+            try {
+                SendResult sendResult = producer.send(msg);
+                // 同步发送消息，只要不抛异常就是成功
+                if (sendResult != null) {
+                    // System.out.println(new Date() + " Send mq message success. Topic is:" + msg.getTopic() + " msgId is: " + sendResult.getMessageId()+"body="+msg.getBody());
+                }
+            } catch (Exception e) {
+                // 消息发送失败，需要进行重试处理，可重新发送这条消息或持久化这条数据进行补偿处理
+                log.error("普通消息发送异常,key=" + key + ",body=" + body + ",tag=" + tag, e);
+                throw new RuntimeException("普通消息发送异常");
+            }
+        }
+        return true;
+    }
+
+    /**
      * 异步消息
      *
      * @param key

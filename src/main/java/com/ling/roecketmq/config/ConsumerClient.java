@@ -18,7 +18,6 @@ import java.util.Properties;
 
 
 /**
- *
  * @author zhangling
  * @date 2022/7/4 9:01 PM
  */
@@ -27,6 +26,10 @@ public class ConsumerClient {
 
     @Autowired
     private OrderMessageListener orderMessageListener;
+    @Autowired
+    private NormalMessageListener normalMessageListener;
+    @Autowired
+    private DelayMessageListener delayMessageListener;
 
     @ConditionalOnProperty(prefix = "mq", name = "type", havingValue = "aliyun")
     @Bean(initMethod = "start", destroyMethod = "shutdown")
@@ -34,9 +37,9 @@ public class ConsumerClient {
         ConsumerBean consumerBean = new ConsumerBean();
         // 配置文件
         Properties properties = new Properties();
-        properties.setProperty(PropertyKeyConst.GROUP_ID, MqConfig.groupId  );
+        properties.setProperty(PropertyKeyConst.GROUP_ID, MqConfig.groupId);
         // AccessKey 阿里云身份验证，在阿里云服务器管理控制台创建
-        properties.put(PropertyKeyConst.AccessKey,MqConfig.accessKey);
+        properties.put(PropertyKeyConst.AccessKey, MqConfig.accessKey);
         // SecretKey 阿里云身份验证，在阿里云服务器管理控制台创建
         properties.put(PropertyKeyConst.SecretKey, MqConfig.secretKey);
         // 设置发送超时时间，单位毫秒
@@ -47,7 +50,7 @@ public class ConsumerClient {
         properties.setProperty(PropertyKeyConst.ConsumeThreadNums, "5");
         consumerBean.setProperties(properties);
 
-        //订阅关系
+        // 订阅关系
         Map<Subscription, MessageListener> subscriptionTable = new HashMap<Subscription, MessageListener>(16);
 
         /**
@@ -56,7 +59,7 @@ public class ConsumerClient {
         Subscription subscription = new Subscription();
         subscription.setTopic(MqConfig.delayTopic);
         subscription.setExpression(MqConfig.delayTag);
-        subscriptionTable.put(subscription, new DelayMessageListener());
+        subscriptionTable.put(subscription, delayMessageListener);
 
         /**
          * 普通消息的订阅
@@ -64,7 +67,7 @@ public class ConsumerClient {
         Subscription subscriptionNormal = new Subscription();
         subscriptionNormal.setTopic(MqConfig.topic);
         subscriptionNormal.setExpression(MqConfig.tag);
-        subscriptionTable.put(subscriptionNormal, new NormalMessageListener());
+        subscriptionTable.put(subscriptionNormal, normalMessageListener);
 
         /**
          * 全局顺序消息的订阅
@@ -74,7 +77,7 @@ public class ConsumerClient {
         subscriptionOrder.setExpression(MqConfig.tag);
         subscriptionTable.put(subscriptionOrder, orderMessageListener);
 
-        //订阅多个topic如上面设置
+        // 订阅多个topic如上面设置
         consumerBean.setSubscriptionTable(subscriptionTable);
 
         return consumerBean;

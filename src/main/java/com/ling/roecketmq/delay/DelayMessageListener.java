@@ -7,6 +7,7 @@ import com.aliyun.openservices.ons.api.Message;
 import com.aliyun.openservices.ons.api.MessageListener;
 import com.ling.roecketmq.subscribe.MessageSubject;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 
 /**
@@ -16,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
  * @date 2022/7/4 9:02 PM
  */
 @Slf4j
+@Component
 public class DelayMessageListener implements MessageListener, org.apache.rocketmq.client.consumer.listener.MessageListener {
 
     @Override

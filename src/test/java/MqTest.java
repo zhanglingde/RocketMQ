@@ -21,21 +21,22 @@ import java.util.Random;
 public class MqTest {
 
     @Test
-    public void normalTest(){
-        boolean normal = MqUtils.normal("normal"+ RandomUtil.randomNumbers(4), "hello world" , "tagC");
+    public void normalTest() {
+        boolean normal = MqUtils.normal("normal" + RandomUtil.randomNumbers(4), "hello world", "tagC");
+        System.out.println("normal = " + normal);
+    }
+
+    @Test
+    public void normalTest2() {
+        boolean normal = MqUtils.normal("order","normal" + RandomUtil.randomNumbers(4), "hello world", "tagC");
         System.out.println("normal = " + normal);
     }
 
 
-    public static void main(String[] args) {
-        // for (int i = 0; i < 5; i++) {
-        //     boolean normal = MqUtils.normal("normal" + i, "hello world" + i, "tagC");
-        //     System.out.println("normal = " + normal);
-        // }
-        boolean normal = MqUtils.normal("normal", "hello world" , "tagC");
-        System.out.println("normal = " + normal);
-        // boolean delay = MqUtils.delay("delay2", "hello world", 1000L, "delay_tag");
-        // System.out.println("delay = " + delay);
+    @Test
+    public void delayMessage() {
+        boolean delay = MqUtils.delay("delay2", "hello world", 1000L, "delay_tag");
+        System.out.println("delay = " + delay);
     }
 
 
@@ -62,7 +63,6 @@ public class MqTest {
         user.setName("zhangling");
 
         boolean normal = MqUtils.delay(MqConfig.rocketMQ_TEST_KEY + "test", JSONUtil.toJsonStr(user), 10000L, MqConfig.rocketMQ_TEST);
-
         System.out.println("normal = " + normal);
 
     }

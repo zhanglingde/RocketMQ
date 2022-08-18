@@ -13,6 +13,7 @@ import org.apache.rocketmq.client.consumer.listener.MessageListenerConcurrently;
 import org.apache.rocketmq.common.message.MessageExt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -23,9 +24,9 @@ import java.util.List;
  * @date 2022/7/4 9:03 PM
  */
 @Slf4j
+@Component
 public class NormalMessageListener implements MessageListener, MessageListenerConcurrently {
 
-    private static Logger logger = LoggerFactory.getLogger(NormalMessageListener.class);
 
     @Override
     public Action consume(Message message, ConsumeContext context) {

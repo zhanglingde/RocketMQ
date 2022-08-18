@@ -9,6 +9,7 @@ import org.apache.rocketmq.client.consumer.listener.MessageListenerConcurrently;
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.common.message.MessageExt;
 import org.apache.rocketmq.common.protocol.heartbeat.MessageModel;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,8 +19,10 @@ import java.util.List;
 @Slf4j
 @Configuration
 public class ApacheConsumerClient {
+    @Autowired
+    NormalMessageListener normalMessageListener;
 
-    @Bean( destroyMethod = "shutdown")
+    @Bean(initMethod = "start",destroyMethod = "shutdown")
     @ConditionalOnProperty(prefix = "mq", name = "type", havingValue = "apache")
     public DefaultMQPushConsumer defaultMQPushConsumer() {
         DefaultMQPushConsumer consumer = new DefaultMQPushConsumer();
@@ -48,7 +51,7 @@ public class ApacheConsumerClient {
             //     }
             // });
             consumer.registerMessageListener(new NormalMessageListener());
-            consumer.start();
+            // consumer.start();
         } catch (MQClientException e) {
             throw new RuntimeException(e);
         }
