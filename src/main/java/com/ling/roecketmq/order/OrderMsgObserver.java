@@ -4,10 +4,10 @@ package com.ling.roecketmq.order;
 import com.ling.roecketmq.subscribe.Observer;
 
 /**
- * @author shisan
- * @Description:
- * @date 2019-08-06 10:27:43
  * 全局顺序消息 demo
+ *
+ * @author zhangling
+ * @date 2022/7/4 9:03 PM
  */
 public class OrderMsgObserver implements Observer {
 

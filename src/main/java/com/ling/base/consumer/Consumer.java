@@ -1,5 +1,6 @@
 package com.ling.base.consumer;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;
@@ -13,16 +14,18 @@ import java.util.List;
 /**
  * 负载均衡模式 消费消息
  */
+@Slf4j
 public class Consumer {
     public static void main(String[] args) throws Exception {
         // 实例化消费者 Consumer
         DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("group1");
         // 设置 NameServer 的地址（可以订阅多个）
-        consumer.setNamesrvAddr("101.43.42.91:9876;192.168.186.128:9876");
+        consumer.setNamesrvAddr("101.43.42.91:9876");
         // 订阅一个或多个 Topic，以及 Tag 来过滤需要消费的消息
         consumer.subscribe("SyncTopic", "*");
         consumer.subscribe("AsyncTopic", "*");
         consumer.subscribe("OnewayTopic", "*");
+        consumer.subscribe("normal", "*");
         // 负载均衡模式 消费消息
         consumer.setMessageModel(MessageModel.CLUSTERING);
         // 广播模式
@@ -33,7 +36,10 @@ public class Consumer {
         consumer.registerMessageListener(new MessageListenerConcurrently() {
             @Override
             public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs, ConsumeConcurrentlyContext consumeConcurrentlyContext) {
-                System.out.println("线程：" + Thread.currentThread().getName() + "，消息：" + msgs);
+                for (MessageExt msg : msgs) {
+                    log.info("topic：{},tag：{},key：{},body:{}", msg.getTopic(), msg.getTags(), msg.getKeys(), new String(msg.getBody()));
+                }
+                // System.out.println("线程：" + Thread.currentThread().getName() + "，消息：" + msgs);
                 return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
             }
         });

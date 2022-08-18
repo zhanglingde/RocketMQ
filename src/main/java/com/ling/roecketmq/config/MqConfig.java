@@ -18,7 +18,7 @@ public class MqConfig {
      */
     public static String nameSrvAddr;
 
-    @Value("${spring.rocketmq.tcpUrl}")
+    @Value("${mq.nameSrvServer}")
     public void setNameSrvAddr(String tcpUrl) {
         nameSrvAddr = tcpUrl;
     }
@@ -28,9 +28,17 @@ public class MqConfig {
      */
     public static String groupId;
 
-    @Value("${spring.rocketmq.GID}")
+
+    @Value("${mq.groupId}")
     public void setGroupId(String GID) {
         groupId = GID;
+    }
+
+    public static String mqType;
+
+    @Value("${mq.type}")
+    public void setMqType(String type) {
+        mqType = type;
     }
 
     //普通消息
@@ -68,10 +76,6 @@ public class MqConfig {
     public static final String VIOLATE_NEW_TAG = "VIOLATE_NEW_TAG";
     public static final String VIOLATE_NEW_KEY = "VIOLATE_NEW_KEY";
 
-
-    public static final String XPG_ORDER_TAG = "xpgOrder";
-    public static final String XPG_ORDER_KEY = "xpgOrder:";
-
     //订单扣减 新tag
     public static final String XPG_ORDER_NEW_TAG = "xpgNewOrder";
     public static final String XPG_ORDER_NEW_KEY = "xpgNewOrder:";
@@ -83,42 +87,6 @@ public class MqConfig {
     public static final String XPG_INVENTORY_RECORD_CANCEL_TAG = "xpgInventoryRecordCancelTag";
     public static final String XPG_INVENTORY_RECORD_CANCLE_KEY = "xpgInventoryRecordCancelKey";
 
-    // 24小时超时未发货
-    //public static final Long OVERTIME_NO_DELIVERY = 24 * 60 * 60 * 1000L;
-    public static final Long OVERTIME_NO_DELIVERY = 2 * 60 * 1000L;
-    public static final String OVERTIME_NO_DELIVERY_TAG = "OVERTIME_NO_DELIVERY_TAG";
-    public static final String OVERTIME_NO_DELIVERY_KEY = "OVERTIME_NO_DELIVERY_KEY";
 
-    // 超时无物流
-    //public static final Long OVERTIME_NO_LOGISTICS = 24 * 60 * 60 * 1000L;
-    public static final Long OVERTIME_NO_LOGISTICS = 2 * 60 * 1000L;
-    public static final String OVERTIME_NO_LOGISTICS_TAG = "OVERTIME_NO_LOGISTICS_TAG";
-    public static final String OVERTIME_NO_LOGISTICS_KEY = "OVERTIME_NO_LOGISTICS_KEY";
-
-    // 超时未走件
-    //public static final Long OVERTIME_NO_MOVING = 24 * 60 * 60 * 1000L;
-    public static final Long OVERTIME_NO_MOVING = 2 * 60 * 1000L;
-    public static final String OVERTIME_NO_MOVING_KEY = "OVERTIME_NO_MOVING_KEY";
-    public static final String OVERTIME_NO_MOVING_TAG = "OVERTIME_NO_MOVING_TAG";
-
-    // 严重超时无物流
-    //public static final Long SERIOUS_OVERTIME = 24 * 60 * 60 * 1000L;
-    public static final Long SERIOUS_OVERTIME = 2 * 60 * 1000L;
-    public static final String SERIOUS_OVERTIME_KEY = "SERIOUS_OVERTIME_KEY";
-    public static final String SERIOUS_OVERTIME_TAG = "SERIOUS_OVERTIME_TAG";
-
-    // 采购价调价周期开始
-    public static final Long ADJUST_COST_START = 24 * 60 * 60 * 1000L;
-    public static final String ADJUST_COST_START_KEY = "ADJUST_COST_START_KEY";
-    public static final String ADJUST_COST_START_TAG = "ADJUST_COST_START_TAG";
-
-    // 采购价调价周期结束
-    public static final Long ADJUST_COST_END = 24 * 60 * 60 * 1000L;
-    public static final String ADJUST_COST_END_KEY = "ADJUST_COST_END_KEY";
-    public static final String ADJUST_COST_END_TAG = "ADJUST_COST_END_TAG";
-
-    // 违规单发货时间回填
-    public static final String VIOLATE_DELIVERY_TIME_BACK_KEY = "VIOLATE_DELIVERY_TIME_BACK_KEY";
-    public static final String VIOLATE_DELIVERY_TIME_BACK_TAG = "VIOLATE_DELIVERY_TIME_BACK_TAG";
 
 }

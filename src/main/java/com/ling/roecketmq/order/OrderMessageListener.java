@@ -9,10 +9,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 /**
- * @author shisan
- * @Description:
- * @date 2019-08-06 10:27:43
  * 顺序消息的订阅
+ *
+ * @author zhangling
+ * @date 2022/7/4 9:03 PM
  */
 @Slf4j
 @Component

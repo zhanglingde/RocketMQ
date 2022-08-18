@@ -2,26 +2,33 @@ package com.ling.roecketmq.subscribe;
 
 /**
  * 抽象观察目标
- * @author shisan
- * @Description:
- * @date 2019-08-06 10:27:43
+ *
+ * @author zhangling
+ * @date 2022/7/4 9:04 PM
  */
 public interface Subject {
     /**
      * 添加观察者
-     * @param  obj
-     * */
+     *
+     * @author zhangling
+     * @date 2022/7/4 9:04 PM
+     */
     void addObserver(Observer obj);
 
     /**
      * 移除观察者
-     * @param  obj
-     * */
+     *
+     * @author zhangling
+     * @date 2022/7/4 9:05 PM
+     */
     void deleteObserver(Observer obj);
 
     /**
-     * 当有新通知通知所有的观察者
-     * */
+     * 当有新通知时通知所有的观察者
+     *
+     * @author zhangling
+     * @date 2022/7/4 9:05 PM
+     */
     void notifyObserver();
 
 }

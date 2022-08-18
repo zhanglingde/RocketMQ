@@ -12,14 +12,13 @@ import org.apache.rocketmq.remoting.exception.RemotingException;
 public class OnewayProducer {
     public static void main(String[] args) throws Exception {
         DefaultMQProducer producer = new DefaultMQProducer("group1");
-        producer.setNamesrvAddr("101.43.42.91:9876");
+        producer.setNamesrvAddr("localhost:9876");
         producer.start();
 
-        for (int i = 0; i < 100; i++) {
-            Message msg = new Message("OnewayTopic","OnewayTag","Oneway Message".getBytes());
-            // 发送单向消息
-            producer.sendOneway(msg);
-        }
+        Message msg = new Message("OnewayTopic", "OnewayTag", "Oneway Message".getBytes());
+        msg.setKeys("OnewayKey" + 11);
+        // 发送单向消息
+        producer.sendOneway(msg);
         producer.shutdown();
     }
 }

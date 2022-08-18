@@ -10,10 +10,10 @@ import lombok.extern.slf4j.Slf4j;
 
 
 /**
- * @author shisan
- * @Description:
- * @date 2019-08-06 10:27:43
  * 延迟消息的订阅
+ *
+ * @author zhangling
+ * @date 2022/7/4 9:02 PM
  */
 @Slf4j
 public class DelayMessageListener implements MessageListener, org.apache.rocketmq.client.consumer.listener.MessageListener {

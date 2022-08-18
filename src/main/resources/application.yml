@@ -3,8 +3,16 @@
 spring:
   rocketmq:
     # 公网 tcp链接地址 实例名称:xpandago_dev
-    tcpUrl: http://MQ_INST_1334495944746972_BYGV6EOq.mq-internet-access.mq-internet.aliyuncs.com:80
+    tcpUrl:
     #开发环境 groupId有多个，可以随机选一个，防止互相干扰 GID_xpanda,GID_xpanda001,GID_xpanda002,GID_xpanda003,GID_xpanda004,GID_xpanda005,GID_xpanda006
-    GID: GID_001
+    GID:
+
+
 server:
-  port: 8082
+  port: 8084
+
+mq:
+#  nameSrvServer: http://MQ_INST_1334495944746972_BYGV6EOq.mq-internet-access.mq-internet.aliyuncs.com:80
+  nameSrvServer: 101.43.42.91:9876
+  groupId: GID_001
+  type: apache
